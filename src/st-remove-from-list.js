@@ -22,7 +22,7 @@ const { NotImplementedError } = require('../extensions/index.js');
 module.exports = function removeKFromList(l, k) {
 
   let roster = l;                                                     // объявление временной переменной roster равной l
-  if (!l) return l;                                                   // проверка на наличие значений в l
+  if (!l) l;                                                          // проверка на наличие значений в l, если l = null, то и вернется null
   if (l.value === k) l = l.next;                                      // нахождение элемента списка l равному k, и его пропуск, с переходом к следующему значению
   while (roster.next) {                                               // проверка циклом наличия значений списка до тех пор пока не закончатся
     if (roster.next.value === k) roster.next = roster.next.next;      // нахождение элемента списка roster равному k, и его пропуск, с переходом к следующему значению

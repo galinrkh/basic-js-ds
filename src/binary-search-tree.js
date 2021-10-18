@@ -8,9 +8,12 @@ const { NotImplementedError } = require('../extensions/index.js');
 */
 module.exports = class BinarySearchTree {
 
+  constructor(root = null) {            // создаем через конструктор и инициализируем root
+    this.rootTree = root;
+  }
+
   root() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.rootTree;               // возвращаем корневой узел дерева
   }
 
   add(/* data */) {
@@ -34,6 +37,7 @@ module.exports = class BinarySearchTree {
   }
 
   min() {
+
     throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
   }
