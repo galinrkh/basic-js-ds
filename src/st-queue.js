@@ -29,11 +29,10 @@ module.exports = class Queue {
     if (this.start) {
       this.end.next = temp;
       this.end = temp;
+      return;
     }
-    else {
-      this.start = temp;
-      this.end = temp;
-    }
+    this.start = temp;
+    this.end = temp;
   }
 
   dequeue() {
