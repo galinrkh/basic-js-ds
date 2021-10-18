@@ -23,50 +23,95 @@ module.exports = class BinarySearchTree {
       return;
     }
 
-    let currentNode = this.vertex;
+    let currentVertex = this.vertex;
 
-    while (currentNode) {
-      if (newNode.data < currentNode.data) {
-        if (!currentNode.left) {
-          currentNode.left = newNode;
+    while (currentVertex) {
+      if (newNode.data < currentVertex.data) {
+        if (!currentVertex.left) {
+          currentVertex.left = newNode;
           return;
         }
-        currentNode = currentNode.left;
-      } else {
-        if (!currentNode.right) {
-          currentNode.right = newNode;
+        currentVertex = currentVertex.left;
+      }
+      else {
+        if (!currentVertex.right) {
+          currentVertex.right = newNode;
           return;
         }
-        currentNode = currentNode.right;
+        currentVertex = currentVertex.right;
       }
     }
   }
 
   has(data) {
-    if (this.find(data)) {
-      return true;
+    if (!this.find(data)) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   find(data) {
-    let temp = this.vertex;
+    let currentVertex = this.vertex;
 
-    while (temp) {
-      if (data < temp.data) {
-        temp = temp.left;
-      } else if (data > temp.data) {
-        temp = temp.right;
-      } else {
-        return temp;
+    if (!currentVertex) {
+      return null;
+    }
+
+    while (currentVertex) {
+      if (data < currentVertex.data) {
+        currentVertex = currentVertex.left;
+      }
+      else if (data > currentVertex.data) {
+        currentVertex = currentVertex.right;
+      }
+      else {
+        return currentVertex;
       }
     }
     return null;
   }
 
   remove(data) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+    this.vertex = removeVertex(this.vertex, data)
+
+    function removeVertex(currentVertex, data) {
+      if (!currentVertex) {
+        return null;
+      }
+
+      if (data < currentVertex.data) {
+        currentVertex.left = removeVertex(currentVertex.left, data)
+        return currentVertex;
+      }
+      else if (data > currentVertex.data) {
+        currentVertex.right = removeVertex(currentVertex.right, data)
+        return currentVertex;
+      }
+      else {
+        if (!currentVertex.left && !currentVertex.right) {
+          return null;
+        }
+      }
+
+      if (!currentVertex.left) {
+        currentVertex = currentVertex.right;
+        return currentVertex;
+      }
+      if (!currentVertex.right) {
+        currentVertex = currentVertex.left;
+        return currentVertex;
+      }
+
+      let minVertex = currentVertex.right;
+
+      while (minVertex.left) {
+        minVertex = minVertex.left;
+      }
+      currentVertex.data = minVertex.data;
+      currentVertex.right = removeVertex(currentVertex.right, minVertex.data);
+      return currentVertex;
+    }
   }
 
   min() {
