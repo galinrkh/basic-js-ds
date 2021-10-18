@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { Node } = require('../extensions/list-tree.js');
+const { Node } = require('../extensions/list-tree.js');
 
 /**
 * Implement simple binary search tree according to task description
@@ -8,30 +8,63 @@ const { NotImplementedError } = require('../extensions/index.js');
 */
 module.exports = class BinarySearchTree {
 
-  constructor(root = null) {            // создаем через конструктор и инициализируем root
-    this.rootTree = root;
+  constructor(root = null) {                    // создаем через конструктор и инициализируем root
+    this.vertex = root;
   }
 
   root() {
-    return this.rootTree;               // возвращаем корневой узел дерева
+    return this.vertex;                         // возвращаем корневой узел дерева
   }
 
-  add(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  add(data) {                                   // добавляем узел с data к дереву
+    const newNode = new Node(data);
+    if (!this.vertex) {
+      this.vertex = newNode;
+      return;
+    }
+
+    let currentNode = this.vertex;
+
+    while (currentNode) {
+      if (newNode.data < currentNode.data) {
+        if (!currentNode.left) {
+          currentNode.left = newNode;
+          return;
+        }
+        currentNode = currentNode.left;
+      } else {
+        if (!currentNode.right) {
+          currentNode.right = newNode;
+          return;
+        }
+        currentNode = currentNode.right;
+      }
+    }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+    if (this.find(data)) {
+      return true;
+    }
+    return false;
   }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  find(data) {
+    let temp = this.vertex;
+
+    while (temp) {
+      if (data < temp.data) {
+        temp = temp.left;
+      } else if (data > temp.data) {
+        temp = temp.right;
+      } else {
+        return temp;
+      }
+    }
+    return null;
   }
 
-  remove(/* data */) {
+  remove(data) {
     throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
   }
