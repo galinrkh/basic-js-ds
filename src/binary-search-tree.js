@@ -8,35 +8,36 @@ const { Node } = require('../extensions/list-tree.js');
 */
 module.exports = class BinarySearchTree {
 
-  constructor(root = null) {                    // создаем через конструктор и инициализируем root
+  constructor(root = null) {                        // создаем через конструктор и инициализируем root
     this.vertex = root;
   }
 
-  root() {                                      // возвращаем корневой узел дерева
+  root() {                                          // возвращаем корневой узел дерева
 
     return this.vertex;
 
   }
 
-  add(data) {                                   // добавляем узел с data к дереву
+  add(data) {                                       // добавляем узел с data к дереву
 
-    const newNode = new Node(data);
-    if (!this.vertex) {
-      this.vertex = newNode;
-      return;
+    const newNode = new Node(data);                 // создаем новый объект через конструктор new
+
+    if (!this.vertex) {                             // если узел пустой (стартовый момент), то
+      this.vertex = newNode;                        // то присваеваем ему newNode,
+      return;                                       // и возвращаем
     }
 
     let currentVertex = this.vertex;
 
-    while (currentVertex) {
-      if (newNode.data < currentVertex.data) {
-        if (!currentVertex.left) {
-          currentVertex.left = newNode;
-          return;
+    while (currentVertex) {                         // перебираем циклом по всем вложенностям дерева до тех пор пока они не закончатся
+      if (newNode.data < currentVertex.data) {      // если data меньше чем текущий узел, то кладем его влево
+        if (!currentVertex.left) {                  // если текущий узел отсутствует
+          currentVertex.left = newNode;             // о присваеваем ему newNode,
+          return;                                   // и возвращаем
         }
         currentVertex = currentVertex.left;
       }
-      else {
+      else {                                        // иначе кладем его вправо (всё тоже самое)
         if (!currentVertex.right) {
           currentVertex.right = newNode;
           return;
@@ -47,35 +48,35 @@ module.exports = class BinarySearchTree {
 
   }
 
-  has(data) {                                     // возвращаем true, если узел с data имеется в дереве и false, если нет
+  has(data) {
 
-    if (!this.find(data)) {
-      return false;
+    if (!this.find(data)) {                          // если узел с data отсутсвует в дереве, 
+      return false;                                  // то возвращаем false,
     }
-    return true;
+    return true;                                     // иначе возвращаем true
 
   }
 
-  find(data) {                                    // возвращаем узел с data, если узел с data имеется в дереве и null, если нет
+  find(data) {                                       // возвращаем узел с data, если узел с data имеется в дереве и null, если нет
 
     let currentVertex = this.vertex;
 
-    if (!currentVertex) {
-      return null;
+    if (!currentVertex) {                            // если узел с data отсутсвует в дереве,
+      return null;                                   // то возвращаем null
     }
 
-    while (currentVertex) {
-      if (data < currentVertex.data) {
-        currentVertex = currentVertex.left;
+    while (currentVertex) {                         // перебираем циклом по всем вложенностям дерева до тех пор пока они не закончатся
+      if (data < currentVertex.data) {              // если data меньше текущего узла, 
+        currentVertex = currentVertex.left;         // то присваеваем ему левое значение
       }
-      else if (data > currentVertex.data) {
-        currentVertex = currentVertex.right;
+      else if (data > currentVertex.data) {         // иначе если data больше текущего узла
+        currentVertex = currentVertex.right;        // то присваеваем ему правое значение
       }
       else {
-        return currentVertex;
+        return currentVertex;                       // иначе вернем текущий узел равный null
       }
     }
-    return null;
+    return null;                                    // по заверщению цикла вернем null
 
   }
 
