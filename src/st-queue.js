@@ -26,18 +26,18 @@ module.exports = class Queue {
 
   enqueue(value) {
     const temp = new ListNode(value)
-    if (this.start) {
-      this.end.next = temp;
+    if (this.start === null) {
+      this.start = temp;
       this.end = temp;
     } else {
-      this.start = temp;
+      this.end.next = temp;
       this.end = temp;
     }
   }
 
   dequeue() {
     let startElement;
-    if (this.start) {
+    if (this.start != null) {
       startElement = this.start.value;
       this.start = this.start.next;
     }
