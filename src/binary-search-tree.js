@@ -12,11 +12,14 @@ module.exports = class BinarySearchTree {
     this.vertex = root;
   }
 
-  root() {
-    return this.vertex;                         // возвращаем корневой узел дерева
+  root() {                                      // возвращаем корневой узел дерева
+
+    return this.vertex;
+
   }
 
   add(data) {                                   // добавляем узел с data к дереву
+
     const newNode = new Node(data);
     if (!this.vertex) {
       this.vertex = newNode;
@@ -41,16 +44,20 @@ module.exports = class BinarySearchTree {
         currentVertex = currentVertex.right;
       }
     }
+
   }
 
-  has(data) {
+  has(data) {                                     // возвращаем true, если узел с data имеется в дереве и false, если нет
+
     if (!this.find(data)) {
       return false;
     }
     return true;
+
   }
 
-  find(data) {
+  find(data) {                                    // возвращаем узел с data, если узел с data имеется в дереве и null, если нет
+
     let currentVertex = this.vertex;
 
     if (!currentVertex) {
@@ -69,9 +76,10 @@ module.exports = class BinarySearchTree {
       }
     }
     return null;
+
   }
 
-  remove(data) {
+  remove(data) {                                      // удаляем узел с data из дерева, если узел с data имеется в дереве
 
     this.vertex = removeVertex(this.vertex, data)
 
@@ -112,17 +120,25 @@ module.exports = class BinarySearchTree {
       currentVertex.right = removeVertex(currentVertex.right, minVertex.data);
       return currentVertex;
     }
+
   }
 
-  min() {
+  min(vertex = this.vertex) {                              // возвращаем минимальное значение, хранящееся в дереве (или null, если у дерева нет узлов)
 
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!vertex.left) {
+      return vertex.data;
+    }
+    return this.min(vertex.left);
+
   }
 
-  max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  max(vertex = this.vertex) {                              // возвращаем максимальное значение, хранящееся в дереве (или null, если у дерева нет узлов)
+
+    if (!vertex.right) {
+      return vertex.data;
+    }
+    return this.max(vertex.right);
+
   }
 
 }
