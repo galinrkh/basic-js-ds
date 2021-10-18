@@ -12,19 +12,49 @@ const { NotImplementedError } = require('../extensions/index.js');
  * stack.pop(); // undefined
  *
  */
- module.exports = class Stack {
-  push(/* element */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+
+module.exports = class Stack {
+
+  constructor(stack = []) {                       // создаем и инициализируем стек в виде массива через конструктор
+    this.stack = stack;
   }
 
-  pop() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  push(element) {                                 // реализуем интерфейс добавления элементов на верх стека
+    this.stack.push(element);                     // через метод .push()
   }
 
-  peek() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  pop() {                                         // реализуем интерфейс удаления верхнего элемента из стека
+    return this.stack.pop();                      // через метод .pop()
+  }
+
+  peek() {                                        // реализуем интерфейс получения верхнего элемента из стека, без его удаления
+    return this.stack[this.stack.length - 1];     // через возврат последнего элемента, полученного по индексу [длина стека - 1]
   }
 }
+
+
+// module.exports = class Stack {
+
+//   constructor(stack = []) {
+//     this.stack = stack.reverse();
+//   }
+
+//   push(element) {
+//     // this.stack.reverse();    
+//     this.stack.unshift(element);
+//     this.stack.reverse();
+//   }
+
+//   pop() {
+//     // this.stack.reverse();    
+//     this.stack.shift();
+//     this.stack.reverse();
+//   }
+
+//   peek() {
+    // // this.stack.reverse();
+    // return this.stack[0];
+    // this.stack.reverse();
+//   }
+// }
